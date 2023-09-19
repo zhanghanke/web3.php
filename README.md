@@ -101,7 +101,7 @@ web3
 $web3->batch(true);
 $web3->clientVersion();
 $web3->hash('0x1234');
-$web3->execute(function ($err, $data) {
+$web3->getProvider()->execute(function ($err, $data) {
     if ($err !== null) {
         // do something
         // it may throw exception or array of exception depends on error type
@@ -189,8 +189,8 @@ $functionData = $contract->at($contractAddress)->getData($functionName, $params)
 ```
 
 # Assign value to outside scope(from callback scope to outside scope)
-Due to callback is not like javascript callback, 
-if we need to assign value to outside scope, 
+Due to callback is not like javascript callback,
+if we need to assign value to outside scope,
 we need to assign reference to callback.
 ```php
 $newAccount = '';
@@ -246,7 +246,7 @@ docker-compose exec php ash
 ```
 /**
  * testHost
- * 
+ *
  * @var string
  */
 protected $testHost = 'http://ganache:8545';
