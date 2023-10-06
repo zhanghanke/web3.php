@@ -16,6 +16,22 @@ use stdClass;
 use kornrunner\Keccak;
 use phpseclib3\Math\BigInteger as BigNumber;
 
+define('MATH_BIGINTEGER_MODE_INTERNAL', 1);
+/**
+ * To use the BCMath library
+ *
+ * (if enabled; otherwise, the internal implementation will be used)
+ */
+define('MATH_BIGINTEGER_MODE_BCMATH', 2);
+/**
+ * To use the GMP library
+ *
+ * (if present; otherwise, either the BCMath or the internal implementation will be used)
+ */
+define('MATH_BIGINTEGER_MODE_GMP', 3);
+
+define('MATH_BIGINTEGER_MODE', MATH_BIGINTEGER_MODE_GMP);
+
 class Utils
 {
     /**
@@ -326,11 +342,11 @@ class Utils
 
             // So we switch phpseclib special global param, change in the future
             switch (MATH_BIGINTEGER_MODE) {
-                case $whole::MODE_GMP:
+                case MATH_BIGINTEGER_MODE_GMP:
                     static $two;
                     $powerBase = gmp_pow(gmp_init(10), (int) $fractionLength);
                     break;
-                case $whole::MODE_BCMATH:
+                case MATH_BIGINTEGER_MODE_BCMATH:
                     $powerBase = bcpow('10', (string) $fractionLength, 0);
                     break;
                 default:
